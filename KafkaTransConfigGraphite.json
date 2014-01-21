@@ -1,0 +1,92 @@
+{
+  "servers" : 
+  [ 
+    {
+      "port" : "9099",
+      "host" : "127.0.0.1",
+      "queries" : 
+      [ 
+        {
+          "obj" : "\"kafka.server\":type=\"BrokerTopicMetrics\",*",
+          "attr" : [ "MeanRate", "OneMinuteRate", "FiveMinuteRate", "FifteenMinuteRate", "Count" ],
+          "resultAlias" : "BrokerTopicMetrics",
+          "outputWriters" : 
+          [ 
+            {
+              "@class" : "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+              "settings" : 
+              {
+                "port" : 2003,
+                "host" : "192.168.33.10",
+                "debug" : true,
+                "typeNames" : ["name"],
+                "numQueryThreads" : 5
+              }
+            } 
+          ]
+        },
+        {
+          "obj" : "\"kafka.server\":type=\"DelayedFetchRequestMetrics\",*",
+          "attr" : [ "MeanRate", "OneMinuteRate", "FiveMinuteRate", "FifteenMinuteRate", "Count" ],
+          "resultAlias" : "DelayedFetchRequestMetrics",
+          "outputWriters" : 
+          [ 
+            {
+              "@class" : "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+              "settings" : 
+              {
+                "port" : 2003,
+                "host" : "192.168.33.10",
+                "debug" : true,
+                "typeNames" : ["name"],
+                "numQueryThreads" : 5
+              }
+            } 
+          ]
+
+        },
+        {
+          "obj" : "java.lang:type=OperatingSystem",
+          "attr" : [ "OpenFileDescriptorCount", "MaxFileDescriptorCount", "ProcessCpuTime", "SystemCpuLoad", "ProcessCpuLoad", "AvailableProcessors"],
+          "resultAlias" : "OperatingSystemMetrices",
+          "outputWriters" : 
+          [ 
+            {
+              "@class" : "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+              "settings" : 
+              {
+                "port" : 2003,
+                "host" : "192.168.33.10",
+                "debug" : true,
+                "typeNames" : ["name"],
+                "numQueryThreads" : 5
+              }
+            } 
+          ]
+
+        },
+        {
+          "obj" : "java.lang:type=Threading",
+          "attr" : [ "ThreadCount", "PeakThreadCount"],
+          "resultAlias" : "OperatingSystemMetrices",
+          "outputWriters" : 
+          [ 
+            {
+              "@class" : "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+              "settings" : 
+              {
+                "port" : 2003,
+                "host" : "192.168.33.10",
+                "debug" : true,
+                "typeNames" : ["name"],
+                "numQueryThreads" : 5
+              }
+            } 
+          ]
+
+        }
+      
+      ]
+    } 
+  ]
+}
